@@ -22,6 +22,8 @@ cffi==1.17.1
     # via cryptography
 charset-normalizer==3.4.0
     # via requests
+chromedriver-binary==133.0.6837.0.0
+    # via py-functions
 click==8.1.7
     # via flask
     # via functions-framework

@@ -3,12 +3,13 @@ name = "py-functions"
 version = "0.1.0"
 description = "Add your description here"
 authors = [
-    { name = "subaru-hello", email = "octosubaru0926@gmail.com" }
+    { name = "subaru-hello" }
 ]
 dependencies = [
     "google-cloud-firestore>=2.19.0",
     "firebase-functions>=0.4.2",
     "firebase-admin>=6.6.0",
+    "chromedriver-binary>=133.0.6837.0.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
