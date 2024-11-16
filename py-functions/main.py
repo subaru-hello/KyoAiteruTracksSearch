@@ -4,10 +4,17 @@
 
 from firebase_functions import https_fn
 from firebase_admin import initialize_app
+from src.handlers.addmessage import addmessage
+from src.handlers.makeuppercase import makeuppercase
+from src.handlers.test import introduction
 
 initialize_app()
-
 
 @https_fn.on_request()
 def on_request_example(req: https_fn.Request) -> https_fn.Response:
     return https_fn.Response("Hello world!")
+
+# 各functionsを呼び出す
+addmessage
+makeuppercase
+introduction
