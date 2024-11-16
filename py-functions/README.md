@@ -1,6 +1,8 @@
 # py-functions
 
-Describe your project here.
+## パッケージ管理
+
+rye を使ってパッケージの管理を行なっている。
 
 ### add packages
 
@@ -22,8 +24,6 @@ Done!
 ```
 
 ## functions の新規開発
-
-###
 
 1. functions を handlers 配下に置いて main.py から呼び出す
    handlers/test.py
