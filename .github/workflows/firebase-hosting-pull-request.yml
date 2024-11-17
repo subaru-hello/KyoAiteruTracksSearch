@@ -3,17 +3,36 @@
 
 name: Deploy to Firebase Hosting on PR
 'on': pull_request
-env:
-  VITE_FIREBASE_API_KEY: ${{secrets.VITE_FIREBASE_API_KEY}}
+
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Generate .env file
+        run: |
+          echo "VITE_FIREBASE_API_KEY=${{ secrets.VITE_FIREBASE_API_KEY }}" >> .env
+          echo "VITE_FIREBASE_HELLO_FUNCTION_URL=${{ secrets.VITE_FIREBASE_HELLO_FUNCTION_URL }}" >> .env
+          echo "VITE_FIREBASE_TRACK_FUNCTION_URL=${{ secrets.VITE_FIREBASE_TRACK_FUNCTION_URL }}" >> .env
+          echo "VITE_FIREBASE_AVA_DATES_FUNCTION_URL=${{ secrets.VITE_FIREBASE_AVA_DATES_FUNCTION_URL }}" >> .env
+          echo "VITE_FIREBASE_TRACK_DETAIL_FUNCTION_URL=${{ secrets.VITE_FIREBASE_TRACK_DETAIL_FUNCTION_URL }}" >> .env
+          echo "VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}" >> .env
+          echo "VITE_FIREBASE_PROJECT_ID=${{ secrets.VITE_FIREBASE_PROJECT_ID }}" >> .env
+          echo "VITE_FIREBASE_STORAGE_BUCKET=${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}" >> .env
+          echo "VITE_FIREBASE_MESSAGE_SENDER_ID=${{ secrets.VITE_FIREBASE_MESSAGE_SENDER_ID }}" >> .env
+          echo "VITE_FIREBASE_SENDER_ID=${{ secrets.VITE_FIREBASE_SENDER_ID }}" >> .env
+          echo "VITE_FIREBASE_MEASUREMENT_ID=${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}" >> .env
+          echo "VITE_FIREBASE_R2_PROFILE_IMAGE_BUCKET=${{ secrets.VITE_FIREBASE_R2_PROFILE_IMAGE_BUCKET }}" >> .env
+          echo "VITE_FIREBASE_R2_URL=${{ secrets.VITE_FIREBASE_R2_URL }}" >> .env
+          echo "VITE_FIREBASE_R2_ENDPOINT=${{ secrets.VITE_FIREBASE_R2_ENDPOINT }}" >> .env
+          echo "VITE_FIREBASE_R2_ACCESS_KEY_ID=${{ secrets.VITE_FIREBASE_R2_ACCESS_KEY_ID }}" >> .env
+          echo "VITE_FIREBASE_R2_SECRET_ACCESS_KEY=${{ secrets.VITE_FIREBASE_R2_SECRET_ACCESS_KEY }}" >> .env
+          echo "VITE_FIREBASE_R2_OTHER_ID=${{ secrets.VITE_FIREBASE_R2_OTHER_ID }}" >> .env
+        env:
+          NODE_ENV: production
       - name: Install Dependencies
         run: |
-          cp .env.production .env
           ls -a
           yarn install
           yarn run build
