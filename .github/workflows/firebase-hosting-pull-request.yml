@@ -19,7 +19,7 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1.0.0
         with:
-          workload_identity_provider: projects/${{ vars.GOOGLE_CLOUD_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-actions/providers/gha-provider
+          workload_identity_provider: projects/${{ vars.GOOGLE_CLOUD_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/nearrun-prod/providers/github
           service_account: github-actions@${{ vars.GOOGLE_CLOUD_PROJECT_ID }}.iam.gserviceaccount.com
           access_token_lifetime: 1200s
           create_credentials_file: true
