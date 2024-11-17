@@ -1,4 +1,4 @@
-# 個人向け開放競技場検索 DB
+# 近くで走れる場所を検索できるアプリ
 
 https://hurdle.biz
 <img width="1481" alt="image" src="https://user-images.githubusercontent.com/79771445/206078471-461cf616-983d-4128-828f-639ea885cc33.png">
