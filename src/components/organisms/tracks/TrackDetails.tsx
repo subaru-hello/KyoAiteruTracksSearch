@@ -21,6 +21,7 @@ import { useEffect } from 'preact/hooks';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from 'auth/AuthProvider';
 import TrackComment from './TrackComment';
+import R2Image from '../global/R2Image';
 
 type Props = {
   prefecture_name: string;
@@ -48,16 +49,8 @@ function TrackDetails({ prefecture_name }: Props) {
     <Box>
       {trackDetail.map((track) => (
         <SimpleGrid key={track.id}>
-          <Flex>
-            <Image
-              rounded={'md'}
-              alt={'product image'}
-              src={'../../../assets/base_track.png'}
-              fit={'cover'}
-              align={'center'}
-              // w={'100%'}
-              // h={{ base: '100%', sm: '400px', lg: '500px' }}
-            />
+          <Flex justifyContent="center">
+            <R2Image src="base_track.png" />
           </Flex>
           <Stack spacing={{ base: 6, md: 10 }}>
             <Box as={'header'}>
@@ -92,15 +85,9 @@ function TrackDetails({ prefecture_name }: Props) {
                   fontSize={'2xl'}
                   fontWeight={'300'}
                 >
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore
+                  歴史ある競技場
                 </Text>
-                <Text fontSize={'lg'}>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-                  aliquid amet at delectus doloribus dolorum expedita hic, ipsum
-                  maxime modi nam officiis porro, quae, quisquam quos
-                  reprehenderit velit? Natus, totam.
-                </Text>
+                <Text fontSize={'lg'}>詳細</Text>
               </VStack>
               <Box>
                 <Text

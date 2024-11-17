@@ -25,7 +25,7 @@ yarn serve
 - 開放状況を一目で理解できるカレンダー機能
 - マイページ機能 ※TODO
 - ログイン・ログアウト機能
-- ユーザー登録機能 
+- ユーザー登録機能
 - コメント追加機能 ※TODO
 - 競技場検索機能
 - 競技場一覧ページ
@@ -46,10 +46,12 @@ ChakraUI
 - バックエンド
 
 ```
-Typescript
 Firebase Storage
 Firebase Cloud Firestore
 Firebase Authentication
+Firebase Functions
+    typescript
+    python
 ```
 
 - インフラ

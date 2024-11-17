@@ -33,7 +33,7 @@ const SiteOutline: FC<Props> = ({ my = 0 }) => {
           fontWeight={'bold'}
           color={useColorModeValue('gray.700', 'gray.50')}
         >
-          競技場を探す
+          近くの競技場を探す
         </chakra.h3>
       </Container>
     </Box>
