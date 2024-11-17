@@ -72,6 +72,7 @@ const ProfileEdit = (): JSX.Element => {
       if (image) {
         const bucket: string = import.meta.env
           .VITE_FIREBASE_R2_PROFILE_IMAGE_BUCKET;
+        console.log(bucket);
         // 画像名に空白が入っていたら取り除く
         const imageName: string = image.name.split(' ').join('');
         const key: string = `${id}/${imageName}`;
