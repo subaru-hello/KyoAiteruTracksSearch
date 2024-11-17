@@ -31,6 +31,7 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          #firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           expires: 30d
-          projectId: your-Firebase-project-ID
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_RIKUJO_B8E9E }}'
+          projectId: rikujo-b8e9e
