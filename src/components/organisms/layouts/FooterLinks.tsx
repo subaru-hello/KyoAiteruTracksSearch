@@ -9,17 +9,18 @@ import {
   Image,
 } from '@chakra-ui/react';
 import iine from 'assets/iine.svg';
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+// import { FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-const Logo = () => {
-  return (
-    <>
-      <Image boxSize="3%" objectFit="cover" src={iine} />
-    </>
-  );
-};
+// const Logo = () => {
+//   return (
+//     <>
+//       <Image boxSize="3%" objectFit="cover" src={iine} />
+//     </>
+//   );
+// };
 
 const SocialButton = ({
   children,
@@ -59,7 +60,7 @@ const SmallCentered: React.FC = () => {
   return (
     <>
       <Box as={Stack} justify={'center'} align={'center'}>
-        <Logo />
+        {/* <Logo /> */}
         <Stack direction={'row'} fontSize={{ md: '10px' }}>
           <StyledLink to="/">ホーム</StyledLink>
           <StyledLink to="tracks">競技場一覧</StyledLink>
@@ -73,15 +74,15 @@ const SmallCentered: React.FC = () => {
         © {currentYear} TrackPublicDB. All rights reserved
       </StyledText>
       <Stack direction={'row'} spacing={6} justifyContent={{ base: 'center' }}>
-        <SocialButton label={'Twitter'} href={'#'}>
-          <FaTwitter />
+        <SocialButton label={'X'} href={'https://x.com'}>
+          <FaXTwitter />
         </SocialButton>
-        <SocialButton label={'YouTube'} href={'#'}>
+        {/* <SocialButton label={'YouTube'} href={'#'}>
           <FaYoutube />
-        </SocialButton>
-        <SocialButton label={'Instagram'} href={'#'}>
+        </SocialButton> */}
+        {/* <SocialButton label={'Instagram'} href={'#'}>
           <FaInstagram />
-        </SocialButton>
+        </SocialButton> */}
       </Stack>
     </>
   );

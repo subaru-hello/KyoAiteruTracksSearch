@@ -19,9 +19,10 @@ const Calender: FC<Props> = (props) => {
         locales={[jaLocale]}
         locale="ja"
         headerToolbar={{
-          left: 'prev,next today',
+          left: 'prev',
           center: 'title',
-          right: 'dayGridMonth,timeGridWeek, listWeek',
+          // right: 'next today dayGridMonth timeGridWeek',
+          right: 'next today dayGridMonth',
         }}
         // dateClick={handleDateClick}
         // events={available_date}
