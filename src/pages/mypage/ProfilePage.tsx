@@ -14,20 +14,20 @@ import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { auth } from 'Firebase';
-import { AuthContext } from 'auth/AuthProvider';
+import { AuthContext, useAuthContext } from 'auth/AuthProvider';
 import Profile from 'components/organisms/users/Profile';
 
 const ProfileOrganism: FC = () => {
-  const { profile, isLoggedIn } = useContext(AuthContext);
+  const { profile } = useAuthContext();
+  const { isLoggedIn } = useContext(AuthContext);
   // ログアウトしたらログインページへリダイレクトさせる
   const navigate = useNavigate();
-  // TODO: Providerで定義する
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (isLoggedIn === false) {
       // TODO: ログインしてくださいのバリデーションをつける
       navigate('/login');
     }
-  }, []);
+  }, [isLoggedIn]);
 
   const handleLogout = () => {
     signOut(auth)
