@@ -27,10 +27,10 @@ const Login: FC = () => {
   // TODO: Providerで定義する
   useEffect(() => {
     if (isLoggedIn) {
-      // TOPページへリダイレクト
+      // TODO: ログインしてくださいのバリデーションをつける
       navigate('/');
     }
-  }, []);
+  }, [isLoggedIn]);
 
   // TODO: 認証方式が何かを調べる
   const SignInWithEmailAndPassword = (

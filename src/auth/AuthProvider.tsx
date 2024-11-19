@@ -1,14 +1,18 @@
-import { createContext, useEffect, useState, ReactNode, Suspense } from 'react';
-import { User } from 'firebase/auth';
-import { auth } from 'Firebase';
-import Loading from 'components/organisms/global/Loading';
+import {
+  createContext,
+  useEffect,
+  useState,
+  ReactNode,
+  useContext,
+} from 'react';
+import { User, onAuthStateChanged, getAuth } from 'firebase/auth';
 import { getCurrentUser } from 'apis/firebase/users';
 import { DocumentData } from 'firebase-admin/firestore';
 
 type AuthContextProps = {
   currentUser: User | null | undefined;
-  isLoggedIn: boolean;
-  profile: DocumentData | undefined;
+  isLoggedIn: boolean | null;
+  profile: DocumentData | null | undefined;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -21,37 +25,44 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(
     undefined
   );
-  const [profile, setProfile] = useState<DocumentData | undefined>(undefined);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profile, setProfile] = useState<DocumentData | null | undefined>(
+    undefined
+  );
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   // ログイン状態を確認する
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
+    const unsubscribe = onAuthStateChanged(getAuth(), async (user) => {
       if (user) {
-        // profileを更新
-        const userSnapShot = await getCurrentUser(user.email);
-        const userInfo = !userSnapShot.empty
-          ? userSnapShot.docs[0].data()
-          : null;
-        setProfile({ ...userInfo, uid: userSnapShot.docs[0]?.id });
-        setCurrentUser(user);
-        setIsLoggedIn(true);
+        try {
+          const userSnapShot = await getCurrentUser(user.email);
+          if (!userSnapShot.empty) {
+            const userInfo = userSnapShot.docs[0].data();
+            setProfile({ ...userInfo, uid: userSnapShot.docs[0].id });
+          } else {
+            setProfile(null);
+          }
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+        } catch (error) {
+          console.error('Error fetching user profile:', error);
+        }
       } else {
+        setCurrentUser(null);
+        setProfile(null);
         setIsLoggedIn(false);
       }
     });
+
+    return () => unsubscribe();
   }, []);
 
   return (
-    // ログイン確認中
-    // 自分で作ったローディングコンポーネントをレンダリングする
-    // TODO: 個別コンポーネントでSuspenseさせた方がpartial renderingできるならそうする
-    <Suspense fallback={<Loading />}>
-      <AuthContext.Provider value={{ currentUser, profile, isLoggedIn }}>
-        {children}
-      </AuthContext.Provider>
-    </Suspense>
+    <AuthContext.Provider value={{ currentUser, profile, isLoggedIn }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
 export { AuthContext, AuthProvider };
+export const useAuthContext = () => useContext(AuthContext);

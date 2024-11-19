@@ -20,12 +20,10 @@ import axios from 'axios';
 import { putPresignedUrl } from 'apis/cloudflare/r2';
 
 const ProfileEdit = (): JSX.Element => {
-  const { currentUser, profile, isLoggedIn } = useContext(AuthContext);
+  const { profile, isLoggedIn } = useContext(AuthContext);
   // TODO: 初期値にcontextを入れていいのか確認
-  const [formData, setFormData] = useState({
-    firstName: profile?.firstName,
-    lastName: profile?.lastName,
-  });
+
+  const [formData, setFormData] = useState({ firstName: '', lastName: '' });
   const [image, setImage] = useState<File>();
   const [previewImageUrl, setPreviewImageUrl] = useState<string>('');
 
@@ -34,15 +32,19 @@ const ProfileEdit = (): JSX.Element => {
   const refInputFirstName = useRef<HTMLInputElement>(null);
   const refInputLastName = useRef<HTMLInputElement>(null);
   const inputImageRef = useRef<HTMLInputElement>(null);
-
-  // TODO: Providerで定義する
   useEffect(() => {
-    if (!isLoggedIn) {
-      // ログインページへリダイレクト
+    if (isLoggedIn === false) {
       // TODO: ログインしてくださいのバリデーションをつける
       navigate('/login');
     }
-  }, []);
+
+    if (isLoggedIn && profile) {
+      setFormData({
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+      });
+    }
+  }, [isLoggedIn, profile]);
 
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
@@ -105,6 +107,8 @@ const ProfileEdit = (): JSX.Element => {
   const onClickProfileImage = () => {
     inputImageRef?.current?.click();
   };
+
+  // if (loading) return <Loading />;
 
   return (
     <Flex
