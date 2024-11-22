@@ -10,8 +10,12 @@
 #   universal: false
 
 -e file:.
+beautifulsoup4==4.12.3
+    # via bs4
 blinker==1.9.0
     # via flask
+bs4==0.0.2
+    # via py-functions
 cachecontrol==0.14.1
     # via firebase-admin
 cachetools==5.5.0
@@ -138,6 +142,8 @@ requests==2.32.3
     # via google-cloud-storage
 rsa==4.9
     # via google-auth
+soupsieve==2.6
+    # via beautifulsoup4
 typing-extensions==4.12.2
     # via firebase-functions
 uritemplate==4.1.1

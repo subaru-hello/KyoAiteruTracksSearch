@@ -7,6 +7,7 @@ from firebase_admin import initialize_app
 from src.handlers.addmessage import addmessage
 from src.handlers.makeuppercase import makeuppercase
 from src.handlers.test import introduction
+from src.handlers.setagaya_sougou_scrape import scraping
 
 initialize_app()
 
@@ -18,3 +19,4 @@ def on_request_example(req: https_fn.Request) -> https_fn.Response:
 addmessage
 makeuppercase
 introduction
+scraping

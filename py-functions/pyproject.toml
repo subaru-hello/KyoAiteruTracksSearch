@@ -10,6 +10,7 @@ dependencies = [
     "firebase-functions>=0.4.2",
     "firebase-admin>=6.6.0",
     "chromedriver-binary>=133.0.6837.0.0",
+    "bs4>=0.0.2",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
