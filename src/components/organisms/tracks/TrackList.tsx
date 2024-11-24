@@ -10,9 +10,8 @@ import {
   SpaceProps,
   useColorModeValue,
   Container,
-  Button,
-  Stack,
   Input,
+  Flex,
 } from '@chakra-ui/react';
 import trackImage from 'assets/base_track.png';
 import type { Track } from 'domains';
@@ -52,16 +51,15 @@ interface CommenterProps {
 const CheckLocationAndCreateLink = (track: Track) => (
   <>
     {window.location.href.includes(track.prefectureID) ? (
-      <Link to={track.id}>
-        <Button colorScheme="teal" variant="outline">
-          詳細
-        </Button>
+      <Link to={track.id} style={{ cursor: 'pointer' }}>
+        {track.name}
       </Link>
     ) : (
-      <Link to={track.prefectureID + '/' + track.id}>
-        <Button colorScheme="teal" variant="outline">
-          詳細
-        </Button>
+      <Link
+        to={track.prefectureID + '/' + track.id}
+        style={{ cursor: 'pointer' }}
+      >
+        {track.name}
       </Link>
     )}
   </>
@@ -103,10 +101,11 @@ const TrackList: FC<Props> = ({ tracks = [] }) => {
   return (
     <Container p="12">
       <Heading as="h1">競技場一覧</Heading>
-      <Stack
-        direction={{ base: 'column', md: 'row' }}
+      <Flex
+        direction={{ base: 'row' }}
         width={{ base: 'full' }}
         alignItems="center"
+        gap={'8'}
         mt={{ base: 4, md: 0 }}
       >
         <Search2Icon />
@@ -115,7 +114,7 @@ const TrackList: FC<Props> = ({ tracks = [] }) => {
           onInput={onInput}
           placeholder="競技場名を入れて下さい"
         />
-      </Stack>
+      </Flex>
       {filteredTracks.map((track) => (
         <Box
           marginTop={{ base: '1', sm: '5' }}
@@ -164,8 +163,9 @@ const TrackList: FC<Props> = ({ tracks = [] }) => {
             marginTop={{ base: '3', sm: '0' }}
           >
             <FeatureTags tags={[track.prefectureID, 'ハードル可']} />
-            <Heading marginTop="1">{track.name}</Heading>
-            {CheckLocationAndCreateLink(track)}
+            {/* <Heading marginTop="1">{track.name}</Heading> */}
+
+            <Text size={'md'}>{CheckLocationAndCreateLink(track)}</Text>
           </Box>
         </Box>
       ))}
