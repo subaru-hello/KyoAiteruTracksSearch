@@ -51,4 +51,11 @@ initialize_app()
 introduction
 ```
 
-2. firebase deploy --only functions を実行する
+2. requirements.txt に書き出す
+   Firebase Functions は、デフォルトで requirements.txt を使って Python の依存関係を解決しているのため、書き出す必要がある
+
+```
+cp requirements.lock requirements.txt
+```
+
+3. firebase deploy --only functions を実行する
