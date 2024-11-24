@@ -58,4 +58,4 @@ introduction
 cp requirements.lock requirements.txt
 ```
 
-1. firebase deploy --only functions を実行する
+3. firebase deploy --only functions を実行する
