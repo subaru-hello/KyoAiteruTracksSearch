@@ -32,7 +32,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // ログイン状態を確認する
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(getAuth(), async (user) => {
+    const _fetchCurrentUser = async () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
       if (user) {
         try {
           const userSnapShot = await getCurrentUser(user.email);
@@ -52,9 +54,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         setProfile(null);
         setIsLoggedIn(false);
       }
-    });
+    };
 
-    return () => unsubscribe();
+    _fetchCurrentUser();
   }, []);
 
   return (
