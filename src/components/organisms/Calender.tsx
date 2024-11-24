@@ -22,7 +22,7 @@ const Calender: FC<Props> = (props) => {
           left: 'prev',
           center: 'title',
           // right: 'next today dayGridMonth timeGridWeek',
-          right: 'next today dayGridMonth',
+          right: 'next',
         }}
         // dateClick={handleDateClick}
         // events={available_date}
