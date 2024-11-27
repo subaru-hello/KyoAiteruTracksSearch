@@ -14,6 +14,11 @@ beautifulsoup4==4.12.3
     # via bs4
 blinker==1.9.0
     # via flask
+boto3==1.35.70
+    # via py-functions
+botocore==1.35.70
+    # via boto3
+    # via s3transfer
 bs4==0.0.2
     # via py-functions
 cachecontrol==0.14.1
@@ -25,8 +30,6 @@ certifi==2024.8.30
 cffi==1.17.1
     # via cryptography
 charset-normalizer==3.4.0
-    # via requests
-chromedriver-binary==133.0.6837.0.0
     # via py-functions
 click==8.1.7
     # via flask
@@ -103,6 +106,9 @@ itsdangerous==2.2.0
     # via flask
 jinja2==3.1.4
     # via flask
+jmespath==1.0.1
+    # via boto3
+    # via botocore
 markupsafe==3.0.2
     # via jinja2
     # via werkzeug
@@ -134,6 +140,8 @@ pyjwt==2.9.0
     # via firebase-functions
 pyparsing==3.2.0
     # via httplib2
+python-dateutil==2.9.0.post0
+    # via botocore
 pyyaml==6.0.2
     # via firebase-functions
 requests==2.32.3
@@ -142,6 +150,10 @@ requests==2.32.3
     # via google-cloud-storage
 rsa==4.9
     # via google-auth
+s3transfer==0.10.4
+    # via boto3
+six==1.16.0
+    # via python-dateutil
 soupsieve==2.6
     # via beautifulsoup4
 typing-extensions==4.12.2
@@ -149,6 +161,7 @@ typing-extensions==4.12.2
 uritemplate==4.1.1
     # via google-api-python-client
 urllib3==2.2.3
+    # via botocore
     # via requests
 watchdog==6.0.0
     # via functions-framework

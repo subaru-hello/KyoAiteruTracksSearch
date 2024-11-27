@@ -9,8 +9,9 @@ dependencies = [
     "google-cloud-firestore>=2.19.0",
     "firebase-functions>=0.4.2",
     "firebase-admin>=6.6.0",
-    "chromedriver-binary>=133.0.6837.0.0",
     "bs4>=0.0.2",
+    "boto3>=1.35.70",
+    "black>=24.10.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
@@ -21,7 +22,9 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = []
+dev-dependencies = [
+    "black>=24.10.0",
+]
 
 [tool.hatch.metadata]
 allow-direct-references = true
