@@ -25,13 +25,13 @@ class R2:
         )
 
     # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3/client/put_object.html
-    def put_object(self, data, key: str):
+    def put_object(self, data, key: str, type: str):
         """
         R2にデータをアップロードする
         """
         try:
             # データをアップロード
-            response = self.s3_client.put_object(Body=data, Bucket=self.bucket, Key=key)
+            response = self.s3_client.put_object(Body=data, Bucket=self.bucket, Key=key, ContentType=type)
 
             print("アップロード成功:", response)
             return response
