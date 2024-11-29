@@ -50,8 +50,8 @@ Firebase Storage
 Firebase Cloud Firestore
 Firebase Authentication
 Firebase Functions
-    typescript
-    python
+    Typescript
+    Python
 ```
 
 - インフラ
@@ -63,6 +63,7 @@ Firebase Hosting
 - その他
 
 ```
+Cloudflare R2 画像ストレージ、日次バッチで取得した競技場の空き情報jsonのストレージとして使用
 Open API スキーマ駆動開発をした際に使用しました。
 ```
 
