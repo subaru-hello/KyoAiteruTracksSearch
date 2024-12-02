@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent } from 'react';
+import { FC, SyntheticEvent, useState } from 'react';
 import {
   Image,
   Box,
@@ -10,11 +10,16 @@ import {
   Button,
   HStack,
 } from '@chakra-ui/react';
-import { AddCommentDoc } from 'apis/firebase/comments';
-import { useNavigate } from 'react-router-dom';
+import {
+  addCommentDoc,
+  CommentDoc,
+  commentSnapshot,
+  fetchComments,
+} from 'apis/firebase/comments';
 import Swal from 'sweetalert2';
-import ShoesImages from 'components/ecosystems/shoes/ShoesImages';
-import WithSpeechBubbles from '../global/TestimonialForTracks';
+import { DocumentData } from 'firebase-admin/firestore';
+import Comments from '../global/Comments';
+import { buildCommentDocs } from 'utils/trackUtils';
 
 // Commentした人コンポーネント
 interface BlogAuthorProps {
@@ -25,6 +30,7 @@ interface BlogAuthorProps {
 export const BlogAuthor: React.FC<BlogAuthorProps> = (props) => {
   return (
     <HStack display="flex" alignItems="center">
+      {/* 投稿者のimageに変える */}
       <Image
         // borderRadius="full"
         // boxSize="40px"
@@ -61,8 +67,13 @@ interface IFirebaseProps {
 }
 
 const TrackCommentForm: FC<IFirebaseProps> = (props) => {
-  console.log(window.location);
-  const navigate = useNavigate();
+  const commentsFilteredByTrackId: CommentDoc[] = buildCommentDocs(
+    commentSnapshot,
+    props.track_id
+  );
+
+  const [comments, setComments] = useState(commentsFilteredByTrackId);
+
   // あるユーザーがコメントを作成する
   const handleSubmitAddComment = async (
     event: SyntheticEvent<HTMLFormElement>
@@ -72,25 +83,23 @@ const TrackCommentForm: FC<IFirebaseProps> = (props) => {
       title: { value: string };
       body: { value: string };
     };
-    AddCommentDoc(
+    await addCommentDoc(
       target.title.value,
       target.body.value,
       props.user_id,
       props.track_id
-    )
-      .then(() => {
-        navigate(window.location.href);
-        Swal.fire({
-          position: 'top',
-          icon: 'success',
-          title: 'コメントを追加しました',
-          showConfirmButton: false,
-          timer: 1000,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    );
+    const updatedComments = await fetchComments();
+    console.log('最新のコメント:', updatedComments);
+
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      title: 'コメントを追加しました',
+      showConfirmButton: false,
+      timer: 1000,
+    });
+    setComments(buildCommentDocs(updatedComments, props.track_id));
   };
 
   // あるユーザーのコメントを削除する
@@ -99,23 +108,27 @@ const TrackCommentForm: FC<IFirebaseProps> = (props) => {
 
   return (
     <Box>
-      <WithSpeechBubbles />
+      <Comments comments={comments} />
       <Heading>使用した感想を書こう</Heading>
       <form onSubmit={handleSubmitAddComment}>
         <FormControl>
-          <FormLabel>Title</FormLabel>
-          <Input name="title" type="text" placeholder="title" />
+          <FormLabel>題名</FormLabel>
+          <Input name="title" type="text" placeholder="久しぶりの..." />
         </FormControl>
         <FormControl>
-          <FormLabel>Body</FormLabel>
-          <Input name="body" type="text" />
+          <FormLabel>内容</FormLabel>
+          <Input
+            name="body"
+            type="text"
+            placeholder="いい気分で走れた！いい施設！"
+          />
         </FormControl>
-        <div>
+        {/* <div>
           <ShoesImages />
-        </div>
+        </div> */}
 
         <div>
-          <Button type="submit">追加</Button>
+          <Button type="submit">投稿</Button>
         </div>
       </form>
     </Box>
