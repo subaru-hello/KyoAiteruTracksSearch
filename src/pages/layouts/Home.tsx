@@ -4,31 +4,37 @@ import { prefectureData } from 'data';
 import { Helmet } from 'react-helmet-async';
 import Calender from 'components/organisms/Calender';
 import SiteOutline from 'components/organisms/layouts/SiteOutline';
-import WithSpeechBubbles from 'components/organisms/layouts/Testimonial';
 import TrackIndex from 'components/organisms/tracks/TrackIndex';
 import { useFetchAvailableDate } from 'hooks/useFetchAvailableDate';
 import { useAppSelector } from 'hooks/useStore';
 import { selectAvailableDate } from 'examples/availableDate/availableDateSlice';
-import axios from 'axios';
+import { CommentDoc, commentSnapshot } from 'apis/firebase/comments';
+import { buildCommentDocs } from 'utils/trackUtils';
+import Comments from 'components/organisms/global/Comments';
 const title = '競技場検索';
 
 const Home: FC = () => {
   useFetchAvailableDate();
   const availableDates = useAppSelector(selectAvailableDate);
-  const fetchTrackDetail = async (trackId: string) => {
-    try {
-      const response = await axios.post(
-        import.meta.env.VITE_FIREBASE_TRACK_DETAIL_FUNCTION_URL,
-        {
-          trackId: trackId,
-        }
-      );
-      return response.data; // or handle response as needed
-    } catch (error) {
-      console.error('Error fetching track detail:', error);
-      // Handle error appropriately
-    }
-  };
+  // const fetchTrackDetail = async (trackId: string) => {
+  //   try {
+  //     const response = await axios.post(
+  //       import.meta.env.VITE_FIREBASE_TRACK_DETAIL_FUNCTION_URL,
+  //       {
+  //         trackId: trackId,
+  //       }
+  //     );
+  //     return response.data; // or handle response as needed
+  //   } catch (error) {
+  //     console.error('Error fetching track detail:', error);
+  //     // Handle error appropriately
+  //   }
+  // };
+
+  // TODO: Reduxに寄せる
+  const commentsFilteredByTrackId: CommentDoc[] =
+    buildCommentDocs(commentSnapshot);
+  console.log('comment', commentsFilteredByTrackId);
 
   return (
     <Box fontFamily={'YuMincho'}>
@@ -53,7 +59,7 @@ const Home: FC = () => {
         </chakra.h3>
         <Calender availableDates={availableDates[0]?.availableDates} />
       </Box>
-      <WithSpeechBubbles />
+      <Comments comments={commentsFilteredByTrackId} />
     </Box>
   );
 };

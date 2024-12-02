@@ -28,7 +28,7 @@ export const ShoesMaker: React.FC<ShoesMakerProps> = (props) => {
   );
 };
 
-// セレクトされたらボタンが出現する仕組みにしておく(setShoesTagにセットする)
+// TODO: セレクトされたらボタンが出現する仕組みにしておく(setShoesTagにセットする)
 const ShoesImages = () => {
   const images = [
     {

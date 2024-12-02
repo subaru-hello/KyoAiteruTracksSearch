@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { isLocal } from 'utils/urlUtils';
 import { Avatar } from '@chakra-ui/react';
 
 const Profile: FC<{ image: string }> = ({ image }) => {
