@@ -1,7 +1,7 @@
 from firebase_functions import scheduler_fn
 from src.handlers.tokyo.setagaya.scraping import Scraping
 from src.models.r2 import R2
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 import json
 import re
@@ -26,9 +26,9 @@ def setagaya_sougou_availability(event: scheduler_fn.ScheduledEvent) -> None:
     }
     print(json.dumps(jsonObj, ensure_ascii=False))
 
-    # 現在の日付と時間を "YYYYMMDDHHMMSS" 形式で生成
-    today_yyyymmddhh = datetime.now().strftime("%Y%m%d%H")
-    key = f"setagaya/{today_yyyymmddhh}/availability.json"
+    # 現在の日付と時間を "YYYYMMDD" 形式で生成
+    today_yyyymmdd = (datetime.now() + timedelta(hours=9)).strftime("%Y%m%d")
+    key = f"setagaya/{today_yyyymmdd}/availability.json"
     r2Client = R2(bucket=os.environ.get("R2_TRACK_BUCKET"))
     r2Client.put_object(json.dumps(jsonObj, ensure_ascii=False), key, 'application/json')
 
