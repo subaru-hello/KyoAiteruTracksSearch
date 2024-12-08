@@ -73,7 +73,7 @@ class Scraping:
                     body_text += clean_line + "\n"
 
         if not body_text:
-            body_text = "該当するコンテンツが見つかりませんでした。"
+            body_text = "本日は個人利用は行なっていません"
 
         return title, body_text
 
