@@ -14,7 +14,7 @@ export const useFetchTrackAvailabilityJson = () => {
     // if (!hasFetched) {
     const _fetchSetagayaJson = async () => {
       try {
-        const today = formatToYYYYMMDD(addHoursToDate(new Date(), 9));
+        const today = formatToYYYYMMDD(new Date());
         // TODO: 汎用性を持たせる
         const stadiumNameKey = STADIUM_NAME.setagaya; // Enum のキー（"setagaya"）
         const stadiumDisplayName = stadiumKeyToName[stadiumNameKey]; // 日本語名
